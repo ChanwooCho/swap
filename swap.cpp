@@ -28,7 +28,7 @@ int main() {
 
     auto writeEnd = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> writeDuration = writeEnd - writeStart;
-    std::cout << "파일 쓰기 시간: " << writeDuration.count() << " 초" << std::endl;
+    std::cout << "파일 쓰기 시간: " << writeDuration.count() * 1000 << " ms" << std::endl;
 
     // --- 파일 읽기 시간 측정 ---
     auto readStart = std::chrono::high_resolution_clock::now();
@@ -46,7 +46,7 @@ int main() {
 
     auto readEnd = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> readDuration = readEnd - readStart;
-    std::cout << "파일 읽기 시간: " << readDuration.count() << " 초" << std::endl;
+    std::cout << "파일 읽기 시간: " << readDuration.count() * 1000 << " ms" << std::endl;
 
     return 0;
 }
