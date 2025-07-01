@@ -9,7 +9,7 @@
 
 int main() {
     // --- 원하는 코어 지정 (예: core 1) ---
-    int target_core = 4;
+    int target_core = 7;
     cpu_set_t cpuset;
     CPU_ZERO(&cpuset);
     CPU_SET(target_core, &cpuset);
