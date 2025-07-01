@@ -6,7 +6,7 @@
 int main() {
     const std::string filename = "/data/data/com.termux/files/home/large_file.bin";
     const std::size_t fileSize = 20 * 1024 * 1024; // 20MB
-    const std::size_t bufferSize = 1024 * 1024;    // 1MB
+    const std::size_t bufferSize = 512 * 1024;    // 512KB
 
     char buffer[bufferSize];
     std::fill(buffer, buffer + bufferSize, 'A');
