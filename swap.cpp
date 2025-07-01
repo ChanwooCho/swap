@@ -1,9 +1,24 @@
+#define _GNU_SOURCE
 #include <iostream>
 #include <fstream>
 #include <chrono>
 #include <string>
+#include <sched.h>       // for sched_setaffinity
+#include <unistd.h>      // for getpid()
 
 int main() {
+    // --- 원하는 코어 지정 (예: core 2) ---
+    int target_core = 7;
+    cpu_set_t cpuset;
+    CPU_ZERO(&cpuset);
+    CPU_SET(target_core, &cpuset);
+
+    if (sched_setaffinity(getpid(), sizeof(cpu_set_t), &cpuset) != 0) {
+        std::cerr << "코어 고정 실패 (core " << target_core << ")" << std::endl;
+    } else {
+        std::cout << "코어 고정 성공: core " << target_core << std::endl;
+    }
+
     const std::string filename = "/data/data/com.termux/files/home/large_file.bin";
     const std::size_t fileSize = 20 * 1024 * 1024; // 20MB
     const std::size_t bufferSize = 512 * 1024;    // 512KB
@@ -20,7 +35,7 @@ int main() {
         return 1;
     }
 
-    for (int i = 0; i < 20; ++i) {
+    for (int i = 0; i < fileSize / bufferSize; ++i) {
         outFile.write(buffer, bufferSize);
     }
 
@@ -40,7 +55,7 @@ int main() {
     }
 
     while (inFile.read(buffer, bufferSize)) {
-        // 읽기만 수행 (처리 없음)
+        // 읽기만 수행
     }
     inFile.close();
 
