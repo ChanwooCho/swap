@@ -76,7 +76,7 @@ int main() {
     }
 
     std::cout << "\n=== 결과 ===" << std::endl;
-    std::cout << "평균 파일 쓰기 시간: " << totalWriteTimeMs / iterations << " ms" << std::endl;
+    // std::cout << "평균 파일 쓰기 시간: " << totalWriteTimeMs / iterations << " ms" << std::endl;
     std::cout << "평균 파일 읽기 시간: " << totalReadTimeMs / iterations << " ms" << std::endl;
 
     return 0;
