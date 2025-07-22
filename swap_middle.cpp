@@ -32,22 +32,22 @@ int main() {
     const int iterations = 100;
 
     for (int iter = 0; iter < iterations; ++iter) {
-        // --- 파일 쓰기 ---
-        auto writeStart = std::chrono::high_resolution_clock::now();
-        std::ofstream outFile(filename, std::ios::binary);
-        if (!outFile.is_open()) {
-            std::cerr << "파일 열기 실패 (쓰기)" << std::endl;
-            return 1;
-        }
+        // // --- 파일 쓰기 ---
+        // auto writeStart = std::chrono::high_resolution_clock::now();
+        // std::ofstream outFile(filename, std::ios::binary);
+        // if (!outFile.is_open()) {
+        //     std::cerr << "파일 열기 실패 (쓰기)" << std::endl;
+        //     return 1;
+        // }
 
-        for (int i = 0; i < fileSize / bufferSize; ++i) {
-            outFile.write(buffer, bufferSize);
-        }
-        outFile.close();
-        auto writeEnd = std::chrono::high_resolution_clock::now();
+        // for (int i = 0; i < fileSize / bufferSize; ++i) {
+        //     outFile.write(buffer, bufferSize);
+        // }
+        // outFile.close();
+        // auto writeEnd = std::chrono::high_resolution_clock::now();
 
-        std::chrono::duration<double> writeDuration = writeEnd - writeStart;
-        totalWriteTimeMs += writeDuration.count() * 1000;
+        // std::chrono::duration<double> writeDuration = writeEnd - writeStart;
+        // totalWriteTimeMs += writeDuration.count() * 1000;
 
         // --- 파일 읽기 ---
         auto readStart = std::chrono::high_resolution_clock::now();
@@ -76,7 +76,7 @@ int main() {
     }
 
     std::cout << "\n=== 결과 ===" << std::endl;
-    std::cout << "평균 파일 쓰기 시간: " << totalWriteTimeMs / iterations << " ms" << std::endl;
+    // std::cout << "평균 파일 쓰기 시간: " << totalWriteTimeMs / iterations << " ms" << std::endl;
     std::cout << "평균 파일 읽기 시간: " << totalReadTimeMs / iterations << " ms" << std::endl;
 
     return 0;
