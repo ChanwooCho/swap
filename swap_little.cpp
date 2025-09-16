@@ -21,7 +21,7 @@ int main() {
     }
 
     const std::string filename = "/data/data/com.termux/files/home/large_file.bin";
-    const std::size_t fileSize = 100 * 1024 * 1024; // 20MB
+    const std::size_t fileSize = 200 * 1024 * 1024; // 1GB
     const std::size_t bufferSize = 512 * 1024;    // 512KB
     char buffer[bufferSize];
     std::fill(buffer, buffer + bufferSize, 'A');
@@ -31,25 +31,25 @@ int main() {
 
     const int iterations = 100;
 
+    // --- 파일 쓰기 ---
+    auto writeStart = std::chrono::high_resolution_clock::now();
+    std::ofstream outFile(filename, std::ios::binary);
+    if (!outFile.is_open()) {
+        std::cerr << "파일 열기 실패 (쓰기)" << std::endl;
+        return 1;
+    }
+
+    for (int i = 0; i < fileSize / bufferSize; ++i) {
+        outFile.write(buffer, bufferSize);
+    }
+    outFile.close();
+    auto writeEnd = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> writeDuration = writeEnd - writeStart;
+    std::cout << "쓰기 시간: " << writeDuration.count() * 1000 << " ms" << std::endl;
+    totalWriteTimeMs += writeDuration.count() * 1000;
+
     for (int iter = 0; iter < iterations; ++iter) {
-        // --- 파일 쓰기 ---
-        auto writeStart = std::chrono::high_resolution_clock::now();
-        std::ofstream outFile(filename, std::ios::binary);
-        if (!outFile.is_open()) {
-            std::cerr << "파일 열기 실패 (쓰기)" << std::endl;
-            return 1;
-        }
-
-        for (int i = 0; i < fileSize / bufferSize; ++i) {
-            outFile.write(buffer, bufferSize);
-        }
-        outFile.close();
-        auto writeEnd = std::chrono::high_resolution_clock::now();
-
-        std::chrono::duration<double> writeDuration = writeEnd - writeStart;
-        std::cout << "쓰기 시간: " << writeDuration.count() * 1000 << " ms" << std::endl;
-        totalWriteTimeMs += writeDuration.count() * 1000;
-
         // --- 파일 읽기 ---
         auto readStart = std::chrono::high_resolution_clock::now();
         std::ifstream inFile(filename, std::ios::binary);
