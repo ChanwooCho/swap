@@ -69,10 +69,10 @@ int main() {
         totalReadTimeMs += readDuration.count() * 1000;
 
         // --- 파일 삭제 ---
-        if (std::remove(filename.c_str()) != 0) {
-            std::cerr << "파일 삭제 실패" << std::endl;
-            return 1;
-        }
+        // if (std::remove(filename.c_str()) != 0) {
+        //     std::cerr << "파일 삭제 실패" << std::endl;
+        //     return 1;
+        // }
 
         std::cout << "[" << iter + 1 << "/" << iterations << "] 완료" << std::endl;
     }
