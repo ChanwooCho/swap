@@ -21,7 +21,7 @@ int main() {
     }
 
     const std::string filename = "/data/data/com.termux/files/home/large_file.bin";
-    const std::size_t fileSize = 270 * 1024 * 1024; // 20MB
+    const std::size_t fileSize = 100 * 1024 * 1024; // 20MB
     const std::size_t bufferSize = 512 * 1024;    // 512KB
     char buffer[bufferSize];
     std::fill(buffer, buffer + bufferSize, 'A');
@@ -33,6 +33,7 @@ int main() {
 
     for (int iter = 0; iter < iterations; ++iter) {
         // --- 파일 쓰기 ---
+        
         auto writeStart = std::chrono::high_resolution_clock::now();
         std::ofstream outFile(filename, std::ios::binary);
         if (!outFile.is_open()) {
@@ -45,8 +46,9 @@ int main() {
         }
         outFile.close();
         auto writeEnd = std::chrono::high_resolution_clock::now();
-
+    
         std::chrono::duration<double> writeDuration = writeEnd - writeStart;
+        std::cout << "쓰기 시간: " << writeDuration << " ms" << std::endl;
         totalWriteTimeMs += writeDuration.count() * 1000;
 
         // --- 파일 읽기 ---
@@ -64,6 +66,7 @@ int main() {
         auto readEnd = std::chrono::high_resolution_clock::now();
 
         std::chrono::duration<double> readDuration = readEnd - readStart;
+        std::cout << "읽기 시간: " << readDuration << " ms" << std::endl;
         totalReadTimeMs += readDuration.count() * 1000;
 
         // --- 파일 삭제 ---
