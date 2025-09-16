@@ -29,7 +29,7 @@ int main() {
     double totalWriteTimeMs = 0.0;
     double totalReadTimeMs = 0.0;
 
-    const int iterations = 10;
+    const int iterations = 100;
 
     for (int iter = 0; iter < iterations; ++iter) {
         // --- 파일 쓰기 ---
